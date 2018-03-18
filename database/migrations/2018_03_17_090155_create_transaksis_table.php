@@ -17,6 +17,7 @@ class CreateTransaksisTable extends Migration
             $table->increments('id');
             $table->integer('lokasi_id');
             $table->integer('user_id');
+            $table->string('jadwal');
             $table->date('tgl_pinjam');
             $table->time('mulai');
             $table->time('akhir');

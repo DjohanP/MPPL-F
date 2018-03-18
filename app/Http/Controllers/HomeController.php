@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -13,7 +14,9 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('loginx');
+        $this->middleware('admin')->only('admin');
+        $this->middleware('penyewa')->only('penyewa');
     }
 
     /**
@@ -23,6 +26,40 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(Auth::user()->role=='admin')
+        {
+            return redirect('/homeadmin');
+        }
+        elseif(Auth::user()->role=='penyewa')
+        {
+            return redirect('/homepenyewa');
+        }
+    }
+    public function loginx(Request $r)
+    {
+        $usr=User::where('email',$r->email)->first();
+        if($usr!=null)
+        {
+            if ( Auth::attempt(['email' => $r->email, 'password' => $r->password]) ) 
+            {
+                if($usr->role=='admin')
+                {
+                    return redirect('/homeadmin');
+                }
+                elseif($usr->role=='penyewa')
+                {
+                    return redirect('/homepenyewa');
+                }
+            }
+        }
+        return redirect('/login');
+    }
+    public function admin()
+    {
+        return view('admin.home');
+    }
+    public function penyewa()
+    {
+        return "penyewa";
     }
 }

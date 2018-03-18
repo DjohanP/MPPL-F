@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateKetersediaansTable extends Migration
+class CreateJadwalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateKetersediaansTable extends Migration
      */
     public function up()
     {
-        Schema::create('ketersediaans', function (Blueprint $table) {
+        Schema::create('jadwals', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lokasi_id');
+            $table->integer('user_id')->default(null);
             $table->date('tanggal');
             $table->time('jam');
             $table->timestamps();
@@ -29,6 +29,6 @@ class CreateKetersediaansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ketersediaans');
+        Schema::dropIfExists('jadwals');
     }
 }
