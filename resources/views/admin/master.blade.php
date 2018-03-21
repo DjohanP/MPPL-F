@@ -147,6 +147,11 @@
           </li>
           <li>
             <a href="#">
+              <i class="fa  fa-edit"></i> <span>Kelola Lapangan</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
               <i class="fa fa-money"></i> <span>Verifikasi Pembayaran</span>
             </a>
           </li>
