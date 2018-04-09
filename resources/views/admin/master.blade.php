@@ -140,7 +140,7 @@
         </div> 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-          <li class="active">
+          <li class="active treeview">
             <a href="#">
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
@@ -150,32 +150,31 @@
               <i class="fa  fa-edit"></i> <span>Kelola Lapangan</span>
             </a>
           </li>
-          <li>
+          <li class="treeview">
             <a href="#">
-              <i class="fa fa-money"></i> <span>Verifikasi Pembayaran</span>
+              <i class="fa fa-money"></i> <span>Pembayaran</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
             </a>
+            <ul class="treeview-menu">
+              <li><a href=""><i class="fa fa-circle-o"></i> Verifikasi Pembayaran</a></li>
+              <li><a href="index2.html"><i class="fa fa-circle-o"></i> Tambah Transaksi Penyewaan</a></li>
+            </ul>
           </li>
-          <li>
+          <li class="treeview">
             <a href="#">
-              <i class="fa fa-plus-circle"></i> <span>Tambah Transaksi Penyewaan</span>
+              <i class="fa fa-balance-scale"></i> <span>Keuangan dan Aktivitas</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
             </a>
+            <ul class="treeview-menu">
+              <li><a href=""><i class="fa fa-circle-o"></i> Pendapatan</a></li>
+              <li><a href="index2.html"><i class="fa fa-circle-o"></i> Kritik dan Saran</a></li>
+              <li><a href="index2.html"><i class="fa fa-circle-o"></i> Aktivitas Penyewaan</a></li>
+            </ul>
           </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-history"></i> <span>Aktivitas Penyewaan</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-balance-scale"></i> <span>Pendapatan</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-sticky-note"></i> <span>Kritik dan Saran</span>
-            </a>
-          </li>
-          
 
           <li class="header">Jadwal</li>
           <li>
@@ -266,7 +265,7 @@
       <div class="pull-right hidden-xs">
         <b>Version</b> 1.0.0
       </div>
-      <strong>Copyright &copy; 2018</strong> All rights
+      <strong>Copyright &copy; {{date('Y')}}</strong> All rights
         reserved.
     </footer>
   </div>
