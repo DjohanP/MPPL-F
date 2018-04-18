@@ -20,10 +20,17 @@ Route::post('/loginx','HomeController@loginx');
 Route::group(['middleware' => ['auth']], function() {
 	Route::group(['middleware'=>['admin']],function(){
 		Route::get('/homeadmin','HomeController@admin');
+
 		Route::get('/kelolalapangan','AdminController@lapangan');
 		Route::post('/kelolalapangan','AdminController@addlapangan');
+		Route::get('/kelolalapangan/edit/{id}','AdminController@view_edit_lapangan');
+		Route::post('/kelolalapangan/edit','AdminController@save_edit_lapangan');
 		Route::get('/nonaktiflapangan/{id}','AdminController@nonaktiflapangan');
 		Route::get('/aktiflapangan/{id}','AdminController@aktiflapangan');
+
+		Route::get('/kelolatarif','AdminController@tarif');
+		Route::get('/kelolatarif/edit/{id}','AdminController@view_edit_tarif');
+		Route::post('/kelolatarif/edit','AdminController@save_edit_tarif');
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');

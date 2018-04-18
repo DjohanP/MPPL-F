@@ -44,10 +44,11 @@
               						@endif
               					</td>
               					<td>
+              						<a class="btn btn-primary" style="margin-bottom: 10px" href="{{ url('/kelolalapangan/edit/'.$x->id) }}" ><i class="fa fa-edit"></i>   Edit</a>
               						@if($x->status=="Aktif")
-              							<a class="btn btn-danger pull-left" style="margin-bottom: 10px" href="{{ url('/nonaktiflapangan/'.$x->id) }}" ><i class="fa fa-warning"></i>  Nonaktifkan</a>
+              							<a class="btn btn-danger" style="margin-bottom: 10px" href="{{ url('/nonaktiflapangan/'.$x->id) }}" ><i class="fa fa-warning"></i>  Nonaktifkan</a>
               						@else
-              							<a class="btn btn-success pull-left" style="margin-bottom: 10px" href="{{ url('/aktiflapangan/'.$x->id) }}" ><i class="fa fa-check"></i>   Aktifkan</a>
+              							<a class="btn btn-success" style="margin-bottom: 10px" href="{{ url('/aktiflapangan/'.$x->id) }}" ><i class="fa fa-check"></i>   Aktifkan</a>
               						@endif
               					</td>
               				</tr>
