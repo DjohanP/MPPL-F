@@ -17,6 +17,7 @@ class CreateLokasisTable extends Migration
             $table->increments('id');
             $table->string('nama_lokasi');
             $table->integer('harga');
+            $table->string('status');
             $table->timestamps();
         });
     }

@@ -20,6 +20,10 @@ Route::post('/loginx','HomeController@loginx');
 Route::group(['middleware' => ['auth']], function() {
 	Route::group(['middleware'=>['admin']],function(){
 		Route::get('/homeadmin','HomeController@admin');
+		Route::get('/kelolalapangan','AdminController@lapangan');
+		Route::post('/kelolalapangan','AdminController@addlapangan');
+		Route::get('/nonaktiflapangan/{id}','AdminController@nonaktiflapangan');
+		Route::get('/aktiflapangan/{id}','AdminController@aktiflapangan');
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');

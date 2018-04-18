@@ -19,7 +19,7 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{asset('dist/css/skins/_all-skins.min.css')}}">
-
+  @yield('addcss')
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -140,14 +140,24 @@
         </div> 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-          <li class="active treeview">
-            <a href="#">
+          <li @if(Request::is('homeadmin')) class="active"@endif>
+            <a href="{{url('/homeadmin')}}">
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
           </li>
-          <li>
-            <a href="#">
+          <li @if(Request::is('kelolalapangan')) class="active" @endif>
+            <a href="{{url('/kelolalapangan')}}">
               <i class="fa  fa-edit"></i> <span>Kelola Lapangan</span>
+            </a>
+          </li>
+          <li @if(Request::is('kelolatarif')) class="active" @endif>
+            <a href="{{url('/kelolatarif')}}">
+              <i class="fa  fa-edit"></i> <span>Kelola Tarif Sewa Lapangan</span>
+            </a>
+          </li>
+          <li @if(Request::is('kelolajadwal')) class="active" @endif>
+            <a href="{{url('/kelolajadwal')}}">
+              <i class="fa  fa-edit"></i> <span>Kelola Jadwal</span>
             </a>
           </li>
           <li class="treeview">
@@ -174,40 +184,6 @@
               <li><a href="index2.html"><i class="fa fa-circle-o"></i> Kritik dan Saran</a></li>
               <li><a href="index2.html"><i class="fa fa-circle-o"></i> Aktivitas Penyewaan</a></li>
             </ul>
-          </li>
-
-          <li class="header">Jadwal</li>
-          <li>
-            <a href="#">
-              <i class="fa fa-calendar-check-o"></i> <span>Lihat Jadwal</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-calendar-plus-o"></i> <span>Tambah Jadwal</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-calendar-minus-o"></i> <span>Edit Jadwal</span>
-            </a>
-          </li>
-
-          <li class="header">Tarif Sewa Lapangan</li>
-          <li>
-            <a href="#">
-              <i class="fa fa-eye"></i> <span>Lihat Tarif Sewa Lapangan</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-plus"></i> <span>Tambah Tarif Sewa Lapangan</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-minus"></i> <span>Edit Tarif Sewa Lapangan</span>
-            </a>
           </li>
         </ul>
       </section>
@@ -290,6 +266,7 @@
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   {{-- <script src="{{asset('dist/js/pages/dashboard2.js')}}"></script> --}}
   <!-- AdminLTE for demo purposes -->
-  <script src="{{asset('dist/js/demo.js')}}"></script>
+  {{-- <script src="{{asset('dist/js/demo.js')}}"></script> --}}
+  @yield('addjs')
 </body>
 </html>
