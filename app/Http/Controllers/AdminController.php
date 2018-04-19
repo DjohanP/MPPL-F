@@ -86,4 +86,9 @@ class AdminController extends Controller
         $lok->save();
         return redirect('/kelolatarif');
     }
+
+    public function jadwal()
+    {
+        return view('admin.jadwal');
+    }
 }

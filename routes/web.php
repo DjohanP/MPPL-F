@@ -31,6 +31,8 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get('/kelolatarif','AdminController@tarif');
 		Route::get('/kelolatarif/edit/{id}','AdminController@view_edit_tarif');
 		Route::post('/kelolatarif/edit','AdminController@save_edit_tarif');
+
+		Route::get('/kelolajadwal','AdminController@jadwal');
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');
