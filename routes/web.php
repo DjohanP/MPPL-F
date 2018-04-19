@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('/kelolatarif/edit','AdminController@save_edit_tarif');
 
 		Route::get('/kelolajadwal','AdminController@jadwal');
+		Route::post('/kelolajadwal','AdminController@addjadwal');
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');

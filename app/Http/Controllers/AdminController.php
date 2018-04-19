@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\lokasi;
+use App\jadwal;
+use DB;
 class AdminController extends Controller
 {
     //
@@ -89,6 +91,39 @@ class AdminController extends Controller
 
     public function jadwal()
     {
-        return view('admin.jadwal');
+        $all_lokasi=lokasi::where('status','Aktif')->get();
+         //->select(DB::raw('count(*) as user_count, status'))
+        $all_jadwal=jadwal::select('lokasi_id','tanggal',DB::raw('count(*)'),DB::raw('min(jam) as mulai'),DB::raw('max(jam) as akhir'))->groupBy('tanggal','lokasi_id')->get();
+        //return $all_jadwal;
+        return view('admin.jadwal',compact('all_lokasi','all_jadwal'));
+    }
+
+    public function addjadwal(Request $r)
+    {
+        if($r->lokasi_lapangan==-1||$r->mulai>$r->akhir||$r->lokasi_lapangan==null)
+
+        {
+            return redirect('/kelolajadwal');
+        }
+        else
+        {
+            DB::table('jadwals')->where('tanggal',$r->tanggal)->where('lokasi_id',$r->lokasi_lapangan)->delete();
+            $mulai=substr($r->mulai,0,2).":00";
+            $akhir=substr($r->akhir,0,2).":00";
+            $i=$mulai;
+            while($i<=$akhir)
+            {
+                $jadwal=new jadwal();
+                $jadwal->lokasi_id=$r->lokasi_lapangan;
+                $jadwal->tanggal=$r->tanggal;
+                $jadwal->user_id=0;
+                $jadwal->jam=$i;
+                $jadwal->save();
+                
+                $i=strtotime($i)+60*60;
+                $i=date('H:i', $i);
+            }
+            return redirect('/kelolajadwal');
+        }
     }
 }
