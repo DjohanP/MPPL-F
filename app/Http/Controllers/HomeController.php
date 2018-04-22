@@ -60,6 +60,6 @@ class HomeController extends Controller
     }
     public function penyewa()
     {
-        return "penyewa";
+        return view('penyewa.home');
     }
 }

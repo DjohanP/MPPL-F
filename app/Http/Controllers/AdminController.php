@@ -101,7 +101,6 @@ class AdminController extends Controller
     public function addjadwal(Request $r)
     {
         if($r->lokasi_lapangan==-1||$r->mulai>$r->akhir||$r->lokasi_lapangan==null)
-
         {
             return redirect('/kelolajadwal');
         }
@@ -119,7 +118,12 @@ class AdminController extends Controller
                 $jadwal->user_id=0;
                 $jadwal->jam=$i;
                 $jadwal->save();
-                
+                //echo $i."\n";
+                if($i=="23:00")
+                {
+                    break;
+                    return redirect('/kelolajadwal');
+                }
                 $i=strtotime($i)+60*60;
                 $i=date('H:i', $i);
             }

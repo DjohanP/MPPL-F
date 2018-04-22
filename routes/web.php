@@ -37,6 +37,10 @@ Route::group(['middleware' => ['auth']], function() {
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');
+		Route::get('/pemesanan','PenyewaController@pesan');
+		Route::post('/addpesan','PenyewaController@addpesan');
+
+		Route::get('/lapangan','PenyewaController@lapangan');
 	});
 });
 
@@ -45,4 +49,3 @@ Auth::routes();
 Route::get('master',function(){
 	return view('master');
 });
-Route::get('/home', 'HomeController@index')->name('home');
