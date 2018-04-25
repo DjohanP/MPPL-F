@@ -25,23 +25,60 @@
 				<table id="example1" class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>No Peminjaman</th>
-							<th>Lapangan</th>
-							<th>Jam Mulai</th>
-							<th>Jam Akhir</th>
+							<th width="10%">No Peminjaman</th>
+							<th width="15%">Lapangan</th>
+							<th width="10%">Jam Mulai</th>
+							<th width="10%">Jam Akhir</th>
+							<th width="6%">Durasi</th>
 							<th>Harga</th>
+							<th>Status</th>
 							<th>Action</th>
 	                	</tr>
 	                </thead>
 	                <tbody>
-	                	<tr>
-	                		<td>1</td>
-	                		<td>1</td>
-	                		<td>1</td>
-	                		<td>1</td>
-	                		<td>1</td>
-	                		<td>1</td>
-	                	</tr>
+	                	@if(count($all_transaksi)!=0)
+	                		@foreach($all_transaksi as $x)
+	                			<tr>
+	                				<td width="10%">{{$x->id}}</td>
+	                				<td width="15%">{{App\lokasi::find($x->lokasi_id)->nama_lokasi}}</td>
+	                				<td width="10%">{{$x->mulai}}</td>
+	                				<td width="10%">{{$x->akhir}}</td>
+	                				<td width="6%">{{$x->durasi}}</td>
+	                				<td>{{$x->harga}}</td>
+	                				<td>
+	                					@if($x->status==0)
+	                						<span class="label label-danger">Belum Upload Bukti Pembayaran</span>
+	                					@elseif($x->status==1)
+	                						<span class="label label-primary">Menunggu Persetujuan Admin</span>
+	                					@elseif($x->status==2)
+	                						<span class="label label-info">Pembayaran Diterima Admin</span>
+	                					@elseif($x->status==3)
+	                						<span class="label label-warning">Belum Mengisi Kritik dan Saran</span>
+	                					@elseif($x->status==4)
+	                						<span class="label label-success">Selesai</span>
+	                					@endif
+	                				</td>
+	                				<td>
+	                					@if($x->status==0)
+	                						<a href="{{url('/upload/'.$x->id)}}"><button class="btn btn-primary">Upload Bukti Pembayaran</button></a>
+	                					@elseif($x->status==1)
+	                						<a href="{{url('/upload/'.$x->id)}}"><button class="btn btn-primary">Upload Bukti Pembayaran</button></a>
+	                						<br><br>
+	                						<a href="{{url('/download/'.$x->id)}}"><button class="btn btn-success">Download Bukti Pembayaran</button></a>
+	                					@elseif($x->status==2)
+	                						<a href=""><button>Download Nota Transaksi</button></a>
+	                					@elseif($x->status==3)
+	                						<a href=""><button>Mengisi Kritik dan Saran</button></a>
+	                						<a href=""><button>Download Nota Transaksi</button></a>
+	                					@elseif($x->status==4)
+	                						<a href=""><button>Download Nota Transaksi</button></a>
+	                					@endif
+	                				</td>
+	                			</tr>
+	                		@endforeach
+	                	@else
+
+	                	@endif
 	                </tbody>
 	            </table>
 	        </div>

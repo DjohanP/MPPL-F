@@ -19,6 +19,7 @@ class CreateTransaksisTable extends Migration
             $table->integer('user_id');
             $table->integer('status');
             $table->string('jadwal');
+            $table->string('file_upload');
             $table->date('tgl_pinjam');
             $table->time('mulai');
             $table->time('akhir');
