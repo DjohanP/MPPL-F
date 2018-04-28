@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\lokasi;
 use App\jadwal;
+use App\transaksi;
 use DB;
 class AdminController extends Controller
 {
@@ -116,6 +117,7 @@ class AdminController extends Controller
                 $jadwal->lokasi_id=$r->lokasi_lapangan;
                 $jadwal->tanggal=$r->tanggal;
                 $jadwal->user_id=0;
+                $jadwal->status=1000;
                 $jadwal->jam=$i;
                 $jadwal->save();
                 //echo $i."\n";
@@ -129,5 +131,40 @@ class AdminController extends Controller
             }
             return redirect('/kelolajadwal');
         }
+    }
+
+    public function verif()
+    {
+        $all_transaksi=transaksi::get();
+        return view('admin.verif',compact('all_transaksi'));
+    }
+
+    public function download($id)
+    {
+        $fl=transaksi::where('id',$id)->first();
+        if($fl==null)
+        {
+            return redirect('/verifpembayaran');
+        }
+        else
+        {
+            $pth="app//file//".$fl->file_upload;
+            $path = storage_path($pth);
+            return response()->download($path);
+        }
+    }
+
+    public function verirf($id)
+    {
+        $all_transaksi=transaksi::where('id',$id)->first();
+        $all_transaksi->status=2;
+        $all_transaksi->save();
+        $ss=explode(",", $all_transaksi->jadwal);
+        foreach ($ss as $sy) {
+            $jadwal=jadwal::where('id',$sy)->first();
+            $jadwal->status=2;
+            $jadwal->save();
+        }
+        return redirect('/verifpembayaran');
     }
 }

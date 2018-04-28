@@ -34,6 +34,10 @@ Route::group(['middleware' => ['auth']], function() {
 
 		Route::get('/kelolajadwal','AdminController@jadwal');
 		Route::post('/kelolajadwal','AdminController@addjadwal');
+
+		Route::get('/verifpembayaran','AdminController@verif');
+		Route::get('/downloadad/{id}','AdminController@download');
+		Route::get('/verifpembayarann/{id}','AdminController@verirf');
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');

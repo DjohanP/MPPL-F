@@ -52,6 +52,7 @@ class PenyewaController extends Controller
 				$jdww=$jdww.",".$m->id;
 			}
 			$m->user_id=Auth::user()->id;
+			$m->status=0;
 			$m->save();
 			$i=strtotime($i)+60*60;
 			$i=date('H:i', $i);

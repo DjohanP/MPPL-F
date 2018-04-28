@@ -168,7 +168,7 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href=""><i class="fa fa-circle-o"></i> Verifikasi Pembayaran</a></li>
+              <li><a href="{{url('/verifpembayaran')}}"><i class="fa fa-circle-o"></i> Verifikasi Pembayaran</a></li>
               <li><a href="index2.html"><i class="fa fa-circle-o"></i> Tambah Transaksi Penyewaan</a></li>
             </ul>
           </li>

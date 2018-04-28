@@ -17,6 +17,7 @@ class CreateJadwalsTable extends Migration
             $table->increments('id');
             $table->integer('lokasi_id');
             $table->integer('user_id')->default(null);
+            $table->integer('status')->default(1000);
             $table->date('tanggal');
             $table->time('jam');
             $table->timestamps();
