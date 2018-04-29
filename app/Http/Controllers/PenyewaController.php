@@ -177,6 +177,8 @@ class PenyewaController extends Controller
 
 	public function lapangan()
 	{
-		return view('penyewa.lapangan');
+		$lokasi=lokasi::get();
+		$jadwal=jadwal::where('status',1000)->get();
+		return view('penyewa.lapangan',compact('lokasi','jadwal'));
 	}
 }

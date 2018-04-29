@@ -1,4 +1,7 @@
 @extends('admin.master')
+@section('addcss')
+	<link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+@endsection
 @section('judul')
 	Kritik dan Saran
 @endsection
@@ -35,4 +38,20 @@
 	        </div>
 		</div>
 	</div>
+@endsection
+@section('addjs')
+	<script src="{{asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+	<script>
+  		$(function () {
+    		$('#example1').DataTable()
+  		})
+	</script>
+	<script type="text/javascript">
+	    function hanyaAngka(evt) {
+	        var charCode = (evt.which) ? evt.which : event.keyCode
+	        if (charCode > 31 && (charCode < 48 || charCode > 57))return false;
+	        return true;
+	    }
+	</script>
 @endsection
