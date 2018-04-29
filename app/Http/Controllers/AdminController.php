@@ -298,7 +298,7 @@ class AdminController extends Controller
             $usr->pekerjaan=$r->pekerjaan;
             $usr->nama_instansi=$r->instansi;
             $usr->email=$r->email;
-            $usr->role="Penyewa";
+            $usr->role="penyewa";
             $usr->password=bcrypt('qwertyuiop');
             $usr->save();
 

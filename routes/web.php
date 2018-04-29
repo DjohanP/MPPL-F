@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::post('/loginx','HomeController@loginx');
-
+Route::post('/registerx','HomeController@registerx');
 Route::group(['middleware' => ['auth']], function() {
 	Route::group(['middleware'=>['admin']],function(){
 		Route::get('/homeadmin','HomeController@admin');
