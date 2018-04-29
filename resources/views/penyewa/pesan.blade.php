@@ -27,6 +27,7 @@
 						<tr>
 							<th width="10%">No Peminjaman</th>
 							<th width="15%">Lapangan</th>
+							<th width="15%">Tanggal</th>
 							<th width="10%">Jam Mulai</th>
 							<th width="10%">Jam Akhir</th>
 							<th width="6%">Durasi</th>
@@ -41,10 +42,11 @@
 	                			<tr>
 	                				<td width="10%">{{$x->id}}</td>
 	                				<td width="15%">{{App\lokasi::find($x->lokasi_id)->nama_lokasi}}</td>
+	                				<td width="10%">{{date("d-m-Y",strtotime($x->tgl_pinjam))}}</td>
 	                				<td width="10%">{{$x->mulai}}</td>
 	                				<td width="10%">{{$x->akhir}}</td>
 	                				<td width="6%">{{$x->durasi}}</td>
-	                				<td>{{$x->harga}}</td>
+	                				<td>Rp. {{number_format($x->harga,0,".",'.')}},-</td>
 	                				<td>
 	                					@if($x->status==0)
 	                						<span class="label label-danger">Belum Upload Bukti Pembayaran</span>
@@ -66,7 +68,7 @@
 	                						<br><br>
 	                						<a href="{{url('/download/'.$x->id)}}"><button class="btn btn-success">Download Bukti Pembayaran</button></a>
 	                					@elseif($x->status==2)
-	                						<a href=""><button>Download Nota Transaksi</button></a>
+	                						<a href="{{url('/notatransaksi/'.$x->id)}}" target="_blank"><button class="btn btn-success">Download Nota Transaksi</button></a>
 	                					@elseif($x->status==3)
 	                						<a href=""><button>Mengisi Kritik dan Saran</button></a>
 	                						<a href=""><button>Download Nota Transaksi</button></a>

@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get('/upload/{id}','PenyewaController@upload');
 		Route::post('/upload','PenyewaController@saveupload');
 		Route::get('/download/{id}','PenyewaController@down');
+		Route::get('/notatransaksi/{id}','PenyewaController@nota');
 
 		Route::get('/lapangan','PenyewaController@lapangan');
 	});

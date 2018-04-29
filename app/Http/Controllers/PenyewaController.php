@@ -141,6 +141,12 @@ class PenyewaController extends Controller
     	}
     }
 
+    public function nota($id)
+    {
+    	$transaksi=transaksi::find($id);
+    	return view('penyewa.nota',compact('transaksi'));
+    }
+
 	public function lapangan()
 	{
 		return view('penyewa.lapangan');
