@@ -155,8 +155,10 @@ class PenyewaController extends Controller
 
     public function savekritiksaran(Request $r)
     {
+    	$transx=transaksi::where('id',$r->id)->first();
     	$kri=new kritiksaran();
     	$kri->user_id=Auth::user()->id;
+    	$kri->lokasi_id=$transx->lokasi_id;
     	$kri->transaksi_id=$r->id;
     	$kri->isi=$r->kritiksaranx;
     	$kri->save();

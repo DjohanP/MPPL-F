@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\lokasi;
 use App\jadwal;
 use App\transaksi;
+use App\kritiksaran;
 use DB;
 class AdminController extends Controller
 {
@@ -180,5 +181,11 @@ class AdminController extends Controller
             $jadwal->save();
         }
         return redirect('/verifpembayaran');
+    }
+
+    public function kritiksaranad()
+    {
+        $kritiksaran=kritiksaran::get();
+        return view('admin.kritiksaran',compact('kritiksaran'));
     }
 }

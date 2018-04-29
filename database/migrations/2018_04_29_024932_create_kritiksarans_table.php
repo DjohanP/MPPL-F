@@ -16,6 +16,7 @@ class CreateKritiksaransTable extends Migration
         Schema::create('kritiksarans', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->integer('lokasi_id');
             $table->integer('transaksi_id');
             $table->longText('isi');
             $table->timestamps();
