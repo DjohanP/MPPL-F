@@ -40,13 +40,13 @@
 	                	@if(count($all_transaksi)!=0)
 	                		@foreach($all_transaksi as $x)
 	                			<tr>
-	                				<td width="10%">{{$x->id}}</td>
+	                				<td width="5%">{{$x->id}}</td>
 	                				<td width="15%">{{App\lokasi::find($x->lokasi_id)->nama_lokasi}}</td>
 	                				<td width="10%">{{date("d-m-Y",strtotime($x->tgl_pinjam))}}</td>
 	                				<td width="10%">{{$x->mulai}}</td>
 	                				<td width="10%">{{$x->akhir}}</td>
 	                				<td width="6%">{{$x->durasi}}</td>
-	                				<td>Rp. {{number_format($x->harga,0,".",'.')}},-</td>
+	                				<td width="10%">Rp. {{number_format($x->harga,0,".",'.')}},-</td>
 	                				<td>
 	                					@if($x->status==0)
 	                						<span class="label label-danger">Belum Upload Bukti Pembayaran</span>
@@ -70,10 +70,11 @@
 	                					@elseif($x->status==2)
 	                						<a href="{{url('/notatransaksi/'.$x->id)}}" target="_blank"><button class="btn btn-success">Download Nota Transaksi</button></a>
 	                					@elseif($x->status==3)
-	                						<a href=""><button>Mengisi Kritik dan Saran</button></a>
-	                						<a href=""><button>Download Nota Transaksi</button></a>
+	                						<a href="{{url('/kritiksaran/'.$x->id)}}"><button class="btn btn-primary">Mengisi Kritik dan Saran</button></a>
+	                						<br><br>
+	                						<a href="{{url('/notatransaksi/'.$x->id)}}" target="_blank"><button class="btn btn-success">Download Nota Transaksi</button></a>
 	                					@elseif($x->status==4)
-	                						<a href=""><button>Download Nota Transaksi</button></a>
+	                						<a href="{{url('/notatransaksi/'.$x->id)}}" target="_blank"><button class="btn btn-success">Download Nota Transaksi</button></a>
 	                					@endif
 	                				</td>
 	                			</tr>

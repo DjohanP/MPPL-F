@@ -15,6 +15,7 @@
 				<table id="example1" class="table table-bordered table-hover">
 					<thead>
 						<tr>
+							<th>No Transaksi</th>
 							<th>Nama Peminjam</th>
 							<th>Lokasi</th>
 							<th>Tanggal</th>
@@ -31,6 +32,7 @@
 	              		@else
 	              			@foreach($all_transaksi as $x)
 	              				<tr>
+	              					<td>{{$x->id}}</td>
 	              					<td>{{App\User::find($x->user_id)->name}}</td>
 	              					<td>{{App\lokasi::find($x->lokasi_id)->nama_lokasi}}</td>
 	              					<td>{{$x->tgl_pinjam}}</td>
@@ -55,8 +57,10 @@
 		              						<a href="{{url('/downloadad/'.$x->id)}}"><button class="btn btn-success">Download Bukti Pembayaran</button></a>
 		              						<br><br>
 		              						<a class="btn btn-primary pull-left" style="margin-bottom: 10px" href="{{ url('/verifpembayarann/'.$x->id) }}" ><i class="fa fa-edit"></i>  Verifikasi</a>
+		              					@elseif($x->status==2)
+		              						<a class="btn btn-primary pull-left" style="margin-bottom: 10px" href="{{ url('/regisulang/'.$x->id) }}" ><i class="fa fa-edit"></i>  Regis Ulang</a>
 		              					@else
-		              						<a href="{{url('/downloadad/'.$x->id)}}"><button class="btn btn-success">Download Bukti Pembayaran</button></a>
+		              						No Action
 	              						@endif
 	              					</td>
 	              				</tr>

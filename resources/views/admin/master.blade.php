@@ -160,15 +160,15 @@
               <i class="fa fa-calendar-check-o"></i> <span>Kelola Jadwal</span>
             </a>
           </li>
-          <li class="treeview">
+          <li @if(Request::is('verifpembayaran')) class="treeview active" @else class="treeview" @endif>
             <a href="#">
               <i class="fa fa-money"></i> <span>Pembayaran</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="{{url('/verifpembayaran')}}"><i class="fa fa-circle-o"></i> Verifikasi Pembayaran</a></li>
+            <ul class="treeview-menu ">
+              <li @if(Request::is('verifpembayaran')) class="active" @endif><a href="{{url('/verifpembayaran')}}"><i class="fa fa-circle-o"></i> Verifikasi Transaksi</a></li>
               <li><a href="index2.html"><i class="fa fa-circle-o"></i> Tambah Transaksi Penyewaan</a></li>
             </ul>
           </li>

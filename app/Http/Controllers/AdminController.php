@@ -167,4 +167,18 @@ class AdminController extends Controller
         }
         return redirect('/verifpembayaran');
     }
+
+    public function regis($id)
+    {
+        $all_transaksi=transaksi::where('id',$id)->first();
+        $all_transaksi->status=3;
+        $all_transaksi->save();
+        $ss=explode(",", $all_transaksi->jadwal);
+        foreach ($ss as $sy) {
+            $jadwal=jadwal::where('id',$sy)->first();
+            $jadwal->status=3;
+            $jadwal->save();
+        }
+        return redirect('/verifpembayaran');
+    }
 }

@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get('/verifpembayaran','AdminController@verif');
 		Route::get('/downloadad/{id}','AdminController@download');
 		Route::get('/verifpembayarann/{id}','AdminController@verirf');
+		Route::get('/regisulang/{id}','AdminController@regis');
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');
@@ -47,6 +48,8 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('/upload','PenyewaController@saveupload');
 		Route::get('/download/{id}','PenyewaController@down');
 		Route::get('/notatransaksi/{id}','PenyewaController@nota');
+		Route::get('/kritiksaran/{id}','PenyewaController@kritiksaran');
+		Route::post('/kritiksaran','PenyewaController@savekritiksaran');
 
 		Route::get('/lapangan','PenyewaController@lapangan');
 	});

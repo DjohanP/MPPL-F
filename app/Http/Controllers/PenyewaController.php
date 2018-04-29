@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\lokasi;
 use App\jadwal;
 use App\transaksi;
+use App\kritiksaran;
 use Storage;
 use DB;
 use Auth;
@@ -145,6 +146,31 @@ class PenyewaController extends Controller
     {
     	$transaksi=transaksi::find($id);
     	return view('penyewa.nota',compact('transaksi'));
+    }
+
+    public function kritiksaran($id)
+    {
+    	return view('penyewa.kritiksaran',compact('id'));
+    }
+
+    public function savekritiksaran(Request $r)
+    {
+    	$kri=new kritiksaran();
+    	$kri->user_id=Auth::user()->id;
+    	$kri->transaksi_id=$r->id;
+    	$kri->isi=$r->kritiksaranx;
+    	$kri->save();
+
+    	$all_transaksi=transaksi::where('id',$r->id)->first();
+        $all_transaksi->status=4;
+        $all_transaksi->save();
+        $ss=explode(",", $all_transaksi->jadwal);
+        foreach ($ss as $sy) {
+            $jadwal=jadwal::where('id',$sy)->first();
+            $jadwal->status=4;
+            $jadwal->save();
+        }
+		return redirect('/pemesanan');
     }
 
 	public function lapangan()
