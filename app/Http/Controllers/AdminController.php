@@ -7,6 +7,7 @@ use App\lokasi;
 use App\jadwal;
 use App\transaksi;
 use App\kritiksaran;
+use APp\User;
 use DB;
 class AdminController extends Controller
 {
@@ -15,6 +16,46 @@ class AdminController extends Controller
     {
     	$lokasi=lokasi::get();
     	return view('admin.lapangan',compact('lokasi'));
+    }
+
+    private function checkjadwal($mulai,$akhir,$tanggal,$lokasi)
+    {
+        $i=$mulai;
+        while($i<$akhir)
+        {
+            $m=jadwal::where('lokasi_id',$lokasi)->where('tanggal',$tanggal)->where('jam',$i)->where('user_id',0)->count();
+            if($m==0)
+            {
+                return -1;
+            }
+            $i=strtotime($i)+60*60;
+            $i=date('H:i', $i);
+        }
+        return 1;
+    }
+
+    private function isijadwal($mulai,$akhir,$tanggal,$lokasi,$us_id)
+    {
+        $jdww="";
+        $i=$mulai;
+        while($i<$akhir)
+        {
+            $m=jadwal::where('lokasi_id',$lokasi)->where('tanggal',$tanggal)->where('jam',$i)->where('user_id',0)->first();
+            if($jdww=="")
+            {
+                $jdww=$m->id;
+            }
+            else
+            {
+                $jdww=$jdww.",".$m->id;
+            }
+            $m->user_id=$us_id;
+            $m->status=0;
+            $m->save();
+            $i=strtotime($i)+60*60;
+            $i=date('H:i', $i);
+        }
+        return $jdww;
     }
 
     public function addlapangan(Request $r)
@@ -221,6 +262,61 @@ class AdminController extends Controller
                 $countx=$countx+$x->harga;
             }
             return view('admin.pendapatan',compact('per','all_transaksi','countx'));
+        }
+    }
+
+    public function addsewa()
+    {
+        $all_lapangan=lokasi::get();
+        return view('admin.addsewa',compact('all_lapangan'));
+    }
+
+    public function postsewa(Request $r)
+    {
+        if($r->mulai>$r->akhir||$r->id_lokasi==null)
+        {
+            return redirect('/addsewa');
+        }
+        $cekadajadwal=jadwal::where('tanggal',$r->tanggal)->where('lokasi_id',$r->id_lokasi)->count();
+        if($cekadajadwal==0)
+        {
+            //belum ada jadwal
+            return redirect('/addsewa');
+        }
+        $mulai=substr($r->mulai,0,2).":00";
+        $akhir=substr($r->akhir,0,2).":00";
+        $cekk=$this->checkjadwal($mulai,$akhir,$r->tanggal,$r->id_lokasi);
+        if($cekk==-1)//penuh
+        {
+            return redirect('/addsewa');
+        }
+        else
+        {  
+            $usr=new User();
+            $usr->name=$r->nama;
+            $usr->no_identitas=$r->id;
+            $usr->pekerjaan=$r->pekerjaan;
+            $usr->nama_instansi=$r->instansi;
+            $usr->email=$r->email;
+            $usr->role="Penyewa";
+            $usr->password=bcrypt('qwertyuiop');
+            $usr->save();
+
+            $trans=new transaksi();
+            $trans->lokasi_id=$r->id_lokasi;
+            $trans->user_id=$usr->id;
+            $trans->status=2;
+            $trans->file_upload=0;
+            $trans->jadwal=$this->isijadwal($mulai,$akhir,$r->tanggal,$r->id_lokasi,$usr->id);//
+
+            $trans->tgl_pinjam=$r->tanggal;
+            $trans->mulai=$r->mulai;
+            $trans->akhir=$r->akhir;
+            $trans->durasi=(strtotime($akhir)-strtotime($mulai))/3600;
+            $hrg=lokasi::where('id',$r->id_lokasi)->first();
+            $trans->harga=$trans->durasi*$hrg->harga;
+            $trans->save();
+            return redirect('/addsewa');
         }
     }
 }

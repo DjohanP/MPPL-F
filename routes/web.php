@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get('/downloadad/{id}','AdminController@download');
 		Route::get('/verifpembayarann/{id}','AdminController@verirf');
 		Route::get('/regisulang/{id}','AdminController@regis');
+		Route::get('/addsewa','AdminController@addsewa');
+		Route::post('/addsewa','AdminController@postsewa');
 
 		Route::get('/kritiksaranad','AdminController@kritiksaranad');
 		Route::get('/logaktivitas','AdminController@logaktivitas');
