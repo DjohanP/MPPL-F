@@ -172,7 +172,7 @@
               <li><a href="index2.html"><i class="fa fa-circle-o"></i> Tambah Transaksi Penyewaan</a></li>
             </ul>
           </li>
-          <li @if(Request::is('kritiksaranad')) class="treeview active" @else class="treeview" @endif>
+          <li @if(Request::is('pendapatan')||Request::is('kritiksaranad')||Request::is('logaktivitas')) class="treeview active" @else class="treeview" @endif>
             <a href="#">
               <i class="fa fa-balance-scale"></i> <span>Keuangan dan Aktivitas</span>
               <span class="pull-right-container">
@@ -180,9 +180,9 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href=""><i class="fa fa-circle-o"></i> Pendapatan</a></li>
+              <li @if(Request::is('pendapatan')) class="active" @endif><a href="{{url('/pendapatan')}}"><i class="fa fa-circle-o"></i> Pendapatan</a></li>
               <li @if(Request::is('kritiksaranad')) class="active" @endif><a href="{{url('/kritiksaranad')}}"><i class="fa fa-circle-o"></i> Kritik dan Saran</a></li>
-              <li><a href="index2.html"><i class="fa fa-circle-o"></i> Aktivitas Penyewaan</a></li>
+              <li @if(Request::is('logaktivitas')) class="active" @endif><a href="{{url('/logaktivitas')}}"><i class="fa fa-circle-o"></i> Aktivitas Penyewaan</a></li>
             </ul>
           </li>
         </ul>

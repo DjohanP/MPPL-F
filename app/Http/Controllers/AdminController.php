@@ -188,4 +188,39 @@ class AdminController extends Controller
         $kritiksaran=kritiksaran::get();
         return view('admin.kritiksaran',compact('kritiksaran'));
     }
+
+    public function logaktivitas()
+    {
+        $all_transaksi=transaksi::get();
+        return view('admin.aktivitas',compact('all_transaksi'));
+    }
+
+    public function pendapatann()
+    {
+        $per=-1;
+        $all_transaksi=transaksi::get();
+        $countx=0;
+        foreach ($all_transaksi as $x) {
+            $countx=$countx+$x->harga;
+        }
+        return view('admin.pendapatan',compact('per','all_transaksi','countx'));
+    }
+
+    public function filter(Request $r)
+    {
+        if($r->bulan==-1)
+        {
+            return redirect('/pendapatan');
+        }
+        else
+        {
+            $per=$r->bulan;
+            $all_transaksi=transaksi::where('tgl_pinjam','like',$per.'%')->get();
+            $countx=0;
+            foreach ($all_transaksi as $x) {
+                $countx=$countx+$x->harga;
+            }
+            return view('admin.pendapatan',compact('per','all_transaksi','countx'));
+        }
+    }
 }

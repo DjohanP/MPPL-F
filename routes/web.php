@@ -41,6 +41,9 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get('/regisulang/{id}','AdminController@regis');
 
 		Route::get('/kritiksaranad','AdminController@kritiksaranad');
+		Route::get('/logaktivitas','AdminController@logaktivitas');
+		Route::get('/pendapatan','AdminController@pendapatann');
+		Route::post('/pendapatan','AdminController@filter');
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');
