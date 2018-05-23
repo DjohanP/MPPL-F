@@ -19,8 +19,10 @@ class CreateUsersTable extends Migration
             $table->string('no_identitas');
             $table->string('pekerjaan');
             $table->string('nama_instansi')->default(null);
+            $table->string('ktp');
             $table->string('email')->unique();
             $table->string('role');
+            $table->string('verif')->default(0);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

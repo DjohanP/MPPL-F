@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{url('registerx')}}">
+                    <form method="POST" action="{{url('registerx')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
@@ -38,8 +38,10 @@
                             <label for="exampleInputEmail1">Confirm Password</label>
                             <input class="form-control" type="password" name="password_confirmation" required>
                         </div>
-
-                        
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Foto KTP/KTM/Identitas Lain</label>
+                            <input type="file" required name="filex" accept=".pdf,.img,.png,.jpg,.jpeg" />
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

@@ -100,6 +100,11 @@
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
           </li>
+          <li @if(Request::is('verifuser')) class="active"@endif>
+            <a href="{{url('/verifuser')}}">
+              <i class="fa fa-user"></i> <span>Verifikasi User</span>
+            </a>
+          </li>
           <li @if(Request::is('kelolalapangan')) class="active" @endif>
             <a href="{{url('/kelolalapangan')}}">
               <i class="fa  fa-edit"></i> <span>Kelola Lapangan</span>
@@ -110,11 +115,11 @@
               <i class="fa fa fa-eye"></i> <span>Kelola Tarif Sewa Lapangan</span>
             </a>
           </li>
-          <li @if(Request::is('kelolajadwal')) class="active" @endif>
+          {{-- <li @if(Request::is('kelolajadwal')) class="active" @endif>
             <a href="{{url('/kelolajadwal')}}">
               <i class="fa fa-calendar-check-o"></i> <span>Kelola Jadwal</span>
             </a>
-          </li>
+          </li> --}}
           <li @if(Request::is('verifpembayaran')||Request::is('addsewa')) class="treeview active" @else class="treeview" @endif>
             <a href="#">
               <i class="fa fa-money"></i> <span>Pembayaran</span>

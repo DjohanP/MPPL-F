@@ -27,6 +27,8 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::post('/kelolalapangan/edit','AdminController@save_edit_lapangan');
 		Route::get('/nonaktiflapangan/{id}','AdminController@nonaktiflapangan');
 		Route::get('/aktiflapangan/{id}','AdminController@aktiflapangan');
+		Route::get('/kelolalapangan/tambahjadwal/{id}','AdminController@gettambahjadwalbul');
+		Route::post('/kelolatarifbul','AdminController@posttambahjadwalbul');
 
 		Route::get('/kelolatarif','AdminController@tarif');
 		Route::get('/kelolatarif/edit/{id}','AdminController@view_edit_tarif');
@@ -41,11 +43,17 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::get('/regisulang/{id}','AdminController@regis');
 		Route::get('/addsewa','AdminController@addsewa');
 		Route::post('/addsewa','AdminController@postsewa');
+		Route::get('/batalper/{id}','AdminController@batalper');
 
 		Route::get('/kritiksaranad','AdminController@kritiksaranad');
 		Route::get('/logaktivitas','AdminController@logaktivitas');
 		Route::get('/pendapatan','AdminController@pendapatann');
 		Route::post('/pendapatan','AdminController@filter');
+
+		Route::get('/verifuser','AdminController@getverif');
+		Route::get('/downktp/{id}','AdminController@downktp');
+		Route::get('/verifauser/{id}','AdminController@verifauser');
+		Route::get('/verifbuser/{id}','AdminController@verifbuser');
 	});
 	Route::group(['middleware'=>['penyewa']],function(){
 		Route::get('/homepenyewa','HomeController@penyewa');

@@ -1,4 +1,7 @@
 @extends('admin.master')
+@section('addcss')
+	<link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+@endsection
 @section('judul')
 	Verifikasi Pembayaran
 @endsection
@@ -22,6 +25,7 @@
 							<th>Waktu</th>
 							<th>Durasi</th>
 							<th>Harga</th>
+							<th>Keterangan</th>
 							<th>Status</th>
 							<th>Action</th>
 	                	</tr>
@@ -38,7 +42,8 @@
 	              					<td>{{$x->tgl_pinjam}}</td>
 	              					<td>{{$x->mulai}} - {{$x->akhir}}</td>
 	              					<td>{{$x->durasi}}</td>
-	              					<td>Rp. {{number_format($x->harga,0,".",'.')}},-</td>
+									<td>Rp. {{number_format($x->harga,0,".",'.')}},-</td>
+	              					<td>{{$x->keterangan}}</td>
 	              					<td>
 	              						@if($x->status==0)
 	                						<span class="label label-danger">Belum Upload Bukti Pembayaran</span>
@@ -50,6 +55,10 @@
 	                						<span class="label label-warning">Belum Mengisi Kritik dan Saran</span>
 	                					@elseif($x->status==4)
 	                						<span class="label label-success">Selesai</span>
+	                					@elseif($x->status==-1||$x->status==-2)
+	                						<span class="label label-danger">Dibatalkan Admin</span>
+	                					@else
+	                						<span class="label label-danger">Waktu Pembayaran Berakhir</span>
 	                					@endif
 	              					</td>
 	              					<td>
@@ -57,10 +66,12 @@
 		              						<a href="{{url('/downloadad/'.$x->id)}}"><button class="btn btn-success">Download Bukti Pembayaran</button></a>
 		              						<br><br>
 		              						<a class="btn btn-primary pull-left" style="margin-bottom: 10px" href="{{ url('/verifpembayarann/'.$x->id) }}" ><i class="fa fa-edit"></i>  Verifikasi</a>
+		              						<br><br>
+	              							<a class="btn btn-danger pull-left" style="margin-bottom: 10px" href="{{ url('/batalper/'.$x->id) }}" ><i class="fa fa-close"></i>  Batalkan Permohonan</a>
 		              					@elseif($x->status==2)
 		              						<a class="btn btn-primary pull-left" style="margin-bottom: 10px" href="{{ url('/regisulang/'.$x->id) }}" ><i class="fa fa-edit"></i>  Regis Ulang</a>
-		              					@else
-		              						No Action
+		              					@elseif($x->status==0)
+	              							<a class="btn btn-danger pull-left" style="margin-bottom: 10px" href="{{ url('/batalper/'.$x->id) }}" ><i class="fa fa-close"></i>  Batalkan Permohonan</a>
 	              						@endif
 	              					</td>
 	              				</tr>
@@ -71,4 +82,20 @@
 	        </div>
 		</div>
 	</div>
+@endsection
+@section('addjs')
+	<script src="{{asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+	<script src="{{asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+	<script>
+  		$(function () {
+    		$('#example1').DataTable()
+  		})
+	</script>
+	<script type="text/javascript">
+	    function hanyaAngka(evt) {
+	        var charCode = (evt.which) ? evt.which : event.keyCode
+	        if (charCode > 31 && (charCode < 48 || charCode > 57))return false;
+	        return true;
+	    }
+	</script>
 @endsection

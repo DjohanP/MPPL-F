@@ -92,6 +92,7 @@ class PenyewaController extends Controller
 			$trans->tgl_pinjam=$r->tanggal;
 			$trans->mulai=$r->mulai;
 			$trans->akhir=$r->akhir;
+			$trans->keterangan=$r->keterangan;
 			$trans->durasi=(strtotime($akhir)-strtotime($mulai))/3600;
 			$hrg=lokasi::where('id',$r->id_lokasi)->first();
 			$trans->harga=$trans->durasi*$hrg->harga;

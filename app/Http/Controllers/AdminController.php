@@ -64,7 +64,84 @@ class AdminController extends Controller
     	$lok->nama_lokasi=$r->nama;
     	$lok->harga=$r->harga;
     	$lok->status="Aktif";
-    	$lok->save();
+        $lok->save();
+        $tgl_sekarang=date("Y-m-d");
+        if(date("m")==1)
+        {
+            $end_date = date("Y").'-02-28';
+        }
+        elseif(date("m")==2)
+        {
+            $end_date = date("Y").'-03-31';
+        }
+        elseif(date("m")==3)
+        {
+            $end_date = date("Y").'-04-30';
+        }
+        elseif(date("m")==4)
+        {
+            $end_date = date("Y").'-05-31';
+        }
+        elseif(date("m")==5)
+        {
+            $end_date = date("Y").'-06-30';
+        }
+        elseif(date("m")==6)
+        {
+            $end_date = date("Y").'-07-31';
+        }
+        elseif(date("m")==7)
+        {
+            $end_date = date("Y").'-08-31';
+        }
+        elseif(date("m")==8)
+        {
+            $end_date = date("Y").'-09-30';
+        }
+        elseif(date("m")==9)
+        {
+            $end_date = date("Y").'-10-31';
+        }
+        elseif(date("m")==10)
+        {
+            $end_date = date("Y").'-11-30';
+        }
+        elseif(date("m")==11)
+        {
+            $end_date = date("Y").'-12-31';
+        }
+        elseif(date("m")==12)
+        {
+            $thn = date("Y")+1;
+            $end_date = $thn.'-01-31';
+        }
+
+        while (strtotime($tgl_sekarang) <= strtotime($end_date)) {
+            //echo $tgl_sekarang;
+            $mulai="00:00";
+            $akhir="23:00";
+            while($mulai<=$akhir)
+            {
+                //echo $tgl_sekarang." ".$mulai."<br>";
+                $mulai=strtotime($mulai)+60*60;
+                $mulai=date("H:i",$mulai);
+
+                $jadwal=new jadwal();
+                $jadwal->lokasi_id=$lok->id;
+                $jadwal->tanggal=$tgl_sekarang;
+                $jadwal->user_id=0;
+                $jadwal->status=1000;
+                $jadwal->jam=$mulai;
+                $jadwal->save();
+
+                if($mulai=="23:00")
+                {
+                    break;
+                }
+            }
+            $tgl_sekarang=strtotime($tgl_sekarang)+24*60*60;
+            $tgl_sekarang = date ("Y-m-d", $tgl_sekarang);
+        }
     	return redirect('/kelolalapangan');
     }
 
@@ -318,5 +395,167 @@ class AdminController extends Controller
             $trans->save();
             return redirect('/addsewa');
         }
+    }
+
+    public function getverif()
+    {
+        $usr=User::where('role','penyewa')->get();
+        return view('admin.verifuser',compact('usr'));
+    }
+
+    public function downktp($id)
+    {
+        $usr=User::find($id);
+        $pth="app//ktp//".$usr->ktp;
+        $path = storage_path($pth);
+        return response()->download($path);
+    }
+
+    public function verifauser($id)
+    {
+        $usr=User::find($id);
+        $usr->verif=1;
+        $usr->save();
+        return redirect('/verifuser');
+    }
+
+    public function verifbuser($id)
+    {
+        $usr=User::find($id);
+        $usr->verif=0;
+        $usr->save();
+        return redirect('/verifuser');
+    }
+
+    public function gettambahjadwalbul($id)
+    {
+        $lokasi=Lokasi::find($id);
+        return view('admin.jadwalbul',compact('lokasi'));
+    }
+
+    public function posttambahjadwalbul(Request $r)
+    {
+        //DB::table('jadwals')->where('tanggal',$r->tanggal)->where('lokasi_id',$r->lokasi_lapangan)->delete();
+        // $list=DB::table('jadwals')->where('tanggal','like',$r->tahun."-".$r->bulan.'-%')->where('lokasi_id',$r->id)->get();
+        // foreach ($list as $x) 
+        // {
+        //     //print_r($x->id);
+        //     DB::table('jadwals')->where('id',$x->id)->where('lokasi_id',$r->id)->delete();
+        // }
+        //return "oke";
+        if($r->bulan=="01")
+        {
+            $start_date = $r->tahun.'-01-01';
+            $end_date = $r->tahun.'-01-31';
+        }
+        elseif($r->bulan=="02")
+        {
+            $start_date = $r->tahun.'-02-01';
+            $end_date = $r->tahun.'-02-28';
+        }
+        elseif($r->bulan=="03")
+        {
+            $start_date = $r->tahun.'-03-01';
+            $end_date = $r->tahun.'-03-31';
+        }
+        elseif($r->bulan=="04")
+        {
+            $start_date = $r->tahun.'-04-01';
+            $end_date = $r->tahun.'-04-30';
+        }
+        elseif($r->bulan=="05")
+        {
+            $start_date = $r->tahun.'-05-01';
+            $end_date = $r->tahun.'-05-31';
+        }
+        elseif($r->bulan=="06")
+        {
+            $start_date = $r->tahun.'-06-01';
+            $end_date = $r->tahun.'-06-30';
+        }
+        elseif($r->bulan=="07")
+        {
+            $start_date = $r->tahun.'-07-01';
+            $end_date = $r->tahun.'-07-31';
+        }
+        elseif($r->bulan=="08")
+        {
+            $start_date = $r->tahun.'-08-01';
+            $end_date = $r->tahun.'-08-31';
+        }
+        elseif($r->bulan=="09")
+        {
+            $start_date = $r->tahun.'-09-01';
+            $end_date = $r->tahun.'-09-30';
+        }
+        elseif($r->bulan=="10")
+        {
+            $start_date = $r->tahun.'-10-01';
+            $end_date = $r->tahun.'-10-31';
+        }
+        elseif($r->bulan=="11")
+        {
+            $start_date = $r->tahun.'-11-01';
+            $end_date = $r->tahun.'-11-30';
+        }
+        elseif($r->bulan=="12")
+        {
+            $start_date = $r->tahun.'-12-01';
+            $end_date = $r->tahun.'-12-31';
+        }
+        while (strtotime($start_date) <= strtotime($end_date)) {
+            //echo $tgl_sekarang;
+            $mulai="00:00";
+            $akhir="23:00";
+            while($mulai<=$akhir)
+            {
+                //echo $tgl_sekarang." ".$mulai."<br>";
+                $mulai=strtotime($mulai)+60*60;
+                $mulai=date("H:i",$mulai);
+                if(jadwal::where('tanggal',$start_date)->where('jam',$mulai)->where('lokasi_id',$r->id)->count()==0)
+                {
+                    $jadwal=new jadwal();
+                    $jadwal->lokasi_id=$r->id;
+                    $jadwal->tanggal=$start_date;
+                    $jadwal->user_id=0;
+                    $jadwal->status=1000;
+                    $jadwal->jam=$mulai;
+                    $jadwal->save();
+                }
+                
+                if($mulai=="23:00")
+                {
+                    break;
+                }
+            }
+            $start_date=strtotime($start_date)+24*60*60;
+            $start_date = date ("Y-m-d", $start_date);
+        }
+        return redirect('/kelolalapangan');
+    }
+
+    public function batalper($id)
+    {
+        $trans=transaksi::find($id);
+        $listjdw=explode(",", $trans->jadwal);
+        foreach ($listjdw as $x) 
+        {
+            $jdw=jadwal::find($x);
+            $jdw->user_id=0;
+            $jdw->status=1000;
+            $jdw->save();
+        }
+        if($trans->status==1)
+        {
+            $trans->status=-1;
+            $trans->save();
+        }
+        elseif($trans->status==0)
+        {
+            $trans->status=-2;
+            $trans->save();
+        }
+        
+        return redirect('/verifpembayaran');
     }
 }

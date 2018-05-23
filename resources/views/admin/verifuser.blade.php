@@ -3,41 +3,50 @@
 	<link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 @endsection
 @section('judul')
-	Kelola Lapangan
+	Verif User
 @endsection
 @section('dimana')
-	<li class="active">Kelola Lapangan</li>
+	<li class="active">Verifikasi User</li>
 @endsection
 @section('content')
 	<div class="row">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Data Lapangan Di ITS</h3>
+				<h3 class="box-title">List User</h3>
 			</div>
 			<div class="box-body">
-				<div class="text-right">
-					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-						<i class="fa fa-plus"></i> Tambah Lapangan
-					</button>
-				</div>
 				<br>
 				<br>
 				<table id="example1" class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>Lokasi</th>
-							<th>Status</th>
+							<th>Nama</th>
+							<th>Email</th>
+							<th>Pekerjaan</th>
+							<th>Nama Instansi</th>
+							<th>Download KTP</th>
 							<th>Action</th>
 	                	</tr>
 	                </thead>
 	                <tbody>
-	                	@if(count($lokasi)==0)
+	                	@if(count($usr)==0)
 	              			<td>Tidak Ada Data</td>
 	              		@else
-	              			@foreach($lokasi as $x)
+	              			@foreach($usr as $x)
 	              				<tr>
-	              					<td>{{$x->nama_lokasi}}</td>
+	              					<td>{{$x->name}}</td>
+	              					<td>{{$x->email}}</td>
+	              					<td>{{$x->pekerjaan}}</td>
+	              					<td>{{$x->nama_instansi}}</td>
+	              					<td><a href="{{url('/downktp/'.$x->id)}}" target="_blank"><span class="btn btn-info">Download KTP</span></a></td>
 	              					<td>
+		              					@if($x->verif==0)
+		              						<a href="{{url('/verifauser/'.$x->id)}}"><span class="btn btn-success">Verifikasi</span></a>
+		              					@else
+		              						<a href="{{url('/verifbuser/'.$x->id)}}"><span class="btn btn-danger">Batalkan Verifikasi</span></a>
+		              					@endif
+	              					</td>
+	              					{{-- <td>
 	              						@if($x->status=="Aktif")
 	              							<span class="label label-success">Aktif</span>
 	              						@else
@@ -51,41 +60,13 @@
 	              						@else
 	              							<a class="btn btn-success" style="margin-bottom: 10px" href="{{ url('/aktiflapangan/'.$x->id) }}" ><i class="fa fa-check"></i>   Aktifkan</a>
 	              						@endif
-	              						<a class="btn btn-warning" style="margin-bottom: 10px" href="{{ url('/kelolalapangan/tambahjadwal/'.$x->id) }}" ><i class="fa fa-plus"></i> Tambah Jadwal Lapangan</a>
-	              					</td>
+	              					</td> --}}
 	              				</tr>
 	              			@endforeach
 	              		@endif
 	                </tbody>
 	            </table>
 	        </div>
-		</div>
-	</div>
-	<div class="modal fade" id="modal-default">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                	<h4 class="modal-title">Default Modal</h4>
-              	</div>
-              	<form method="post" action="{{url('/kelolalapangan')}}">
-	              	<div class="modal-body">
-	                	<div class="form-group">
-	                    	<label>Lokasi Lapangan</label>
-	                      	<input type="text" class="form-control" name="nama" required />
-	                  	</div>
-	                  	<div class="form-group">
-	                    	<label>Harga Sewa Lapangan per Jam</label>
-	                      	<input type="text" onkeypress="return hanyaAngka(event)" class="form-control" name="harga" required />
-	                  	</div>
-	                	{{csrf_field()}}
-	              	</div>
-	              	<div class="modal-footer">
-	                	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-	                	<button type="submit" class="btn btn-primary">Save changes</button>
-	              	</div>
-              	</form>
-            </div>
 		</div>
 	</div>
 @endsection

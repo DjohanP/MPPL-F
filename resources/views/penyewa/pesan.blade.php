@@ -58,6 +58,10 @@
 	                						<span class="label label-warning">Belum Mengisi Kritik dan Saran</span>
 	                					@elseif($x->status==4)
 	                						<span class="label label-success">Selesai</span>
+	                					@elseif($x->status==-1||$x->status==-2)
+	                						<span class="label label-danger">Dibatalkan Admin</span>
+	                					@else
+	                						<span class="label label-danger">Waktu Pembayaran Berakhir</span>
 	                					@endif
 	                				</td>
 	                				<td>
@@ -75,6 +79,8 @@
 	                						<a href="{{url('/notatransaksi/'.$x->id)}}" target="_blank"><button class="btn btn-success">Download Nota Transaksi</button></a>
 	                					@elseif($x->status==4)
 	                						<a href="{{url('/notatransaksi/'.$x->id)}}" target="_blank"><button class="btn btn-success">Download Nota Transaksi</button></a>
+	                					@elseif($x->status==-1)
+	                						<a href="{{url('/download/'.$x->id)}}"><button class="btn btn-success">Download Bukti Pembayaran</button></a>
 	                					@endif
 	                				</td>
 	                			</tr>
@@ -115,6 +121,10 @@
 	                  	<div class="form-group">
 	                    	<label>Jam Akhir</label>
 	                    	<input type="time" name="akhir" class="form-control" required>
+	                  	</div>
+	                  	<div class="form-group">
+	                    	<label>Keterangan Penggunaan</label>
+	                    	<input type="text" name="keterangan" class="form-control" required>
 	                  	</div>
 	                	{{csrf_field()}}
 	              	</div>
