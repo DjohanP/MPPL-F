@@ -316,7 +316,7 @@ class AdminController extends Controller
     public function pendapatann()
     {
         $per=-1;
-        $all_transaksi=transaksi::get();
+        $all_transaksi=transaksi::where('status','>',1)->get();
         $countx=0;
         foreach ($all_transaksi as $x) {
             $countx=$countx+$x->harga;
@@ -333,7 +333,7 @@ class AdminController extends Controller
         else
         {
             $per=$r->bulan;
-            $all_transaksi=transaksi::where('tgl_pinjam','like',$per.'%')->get();
+            $all_transaksi=transaksi::where('status','>',1)->where('tgl_pinjam','like',$per.'%')->get();
             $countx=0;
             foreach ($all_transaksi as $x) {
                 $countx=$countx+$x->harga;
@@ -385,7 +385,7 @@ class AdminController extends Controller
             $trans->status=2;
             $trans->file_upload=0;
             $trans->jadwal=$this->isijadwal($mulai,$akhir,$r->tanggal,$r->id_lokasi,$usr->id);//
-
+            $trans->keterangan=$r->keterangan;
             $trans->tgl_pinjam=$r->tanggal;
             $trans->mulai=$r->mulai;
             $trans->akhir=$r->akhir;

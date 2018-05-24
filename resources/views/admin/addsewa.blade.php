@@ -55,6 +55,10 @@
 	                    	<label>Jam Akhir</label>
 	                    	<input type="time" name="akhir" class="form-control" required>
 	                  	</div>
+	                  	<div class="form-group">
+	                    	<label>Keterangan Penggunaan</label>
+	                    	<input type="text" name="keterangan" class="form-control" required>
+	                  	</div>
 	                  	{{csrf_field()}}
 						<div class="box-footer">
 							<button type="submit" class="btn btn-primary">Save</button>
