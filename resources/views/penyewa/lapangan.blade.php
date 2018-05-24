@@ -69,6 +69,43 @@
 	        </div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">Jadwal Penyewaan</h3>
+			</div>
+			<div class="box-body">
+				<table id="example1" class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Nomor Transaksi</th>
+							<th>Nama Peminjam</th>
+							<th>Lokasi</th>
+							<th>Tanggal</th>
+							<th>Waktu</th>
+							<th>Durasi</th>
+	                	</tr>
+	                </thead>
+	                <tbody>
+	                	@if(count($all_transaksi)==0)
+	                		<td>Tidak Ada Data</td>
+	                	@else
+	                		@foreach($all_transaksi as $x)
+	                			<tr>
+	                				<td>{{$x->id}}</td>
+	                				<td>{{App\User::find($x->user_id)->name}}</td>
+	                				<td>{{App\lokasi::find($x->lokasi_id)->nama_lokasi}}</td>
+	                				<td>{{date("d-m-Y",strtotime($x->tgl_pinjam))}}</td>
+	                				<td>{{$x->mulai}} - {{$x->akhir}}</td>
+	                				<td>{{$x->durasi}}</td>
+	                			</tr>
+	                		@endforeach
+	                	@endif
+	                </tbody>
+	            </table>
+	        </div>
+		</div>
+	</div>
 @endsection
 @section('addjs')
 	<script src="{{asset('bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>

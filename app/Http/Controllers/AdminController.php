@@ -309,7 +309,7 @@ class AdminController extends Controller
 
     public function logaktivitas()
     {
-        $all_transaksi=transaksi::get();
+        $all_transaksi=transaksi::where('status','>',1)->get();
         return view('admin.aktivitas',compact('all_transaksi'));
     }
 

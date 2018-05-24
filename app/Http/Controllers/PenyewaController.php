@@ -180,6 +180,7 @@ class PenyewaController extends Controller
 	{
 		$lokasi=lokasi::get();
 		$jadwal=jadwal::where('status',1000)->get();
-		return view('penyewa.lapangan',compact('lokasi','jadwal'));
+		$all_transaksi=transaksi::where('status','>',1)->get();
+		return view('penyewa.lapangan',compact('lokasi','jadwal','all_transaksi'));
 	}
 }

@@ -19,11 +19,11 @@
 					<thead>
 						<tr>
 							<th>Nomor Transaksi</th>
+							<th>Nama Peminjam</th>
 							<th>Lokasi</th>
 							<th>Tanggal</th>
 							<th>Waktu</th>
 							<th>Durasi</th>
-							<th>Status</th>
 	                	</tr>
 	                </thead>
 	                <tbody>
@@ -33,23 +33,11 @@
 	                		@foreach($all_transaksi as $x)
 	                			<tr>
 	                				<td>{{$x->id}}</td>
+	                				<td>{{App\User::find($x->user_id)->name}}</td>
 	                				<td>{{App\lokasi::find($x->lokasi_id)->nama_lokasi}}</td>
 	                				<td>{{date("d-m-Y",strtotime($x->tgl_pinjam))}}</td>
 	                				<td>{{$x->mulai}} - {{$x->akhir}}</td>
 	                				<td>{{$x->durasi}}</td>
-	                				<td>
-	                					@if($x->status==0)
-	                						<span class="label label-danger">Belum Upload Bukti Pembayaran</span>
-	                					@elseif($x->status==1)
-	                						<span class="label label-primary">Menunggu Persetujuan Admin</span>
-	                					@elseif($x->status==2)
-	                						<span class="label label-info">Pembayaran Diterima Admin</span>
-	                					@elseif($x->status==3)
-	                						<span class="label label-warning">Belum Mengisi Kritik dan Saran</span>
-	                					@elseif($x->status==4)
-	                						<span class="label label-success">Selesai</span>
-	                					@endif
-	                				</td>
 	                			</tr>
 	                		@endforeach
 	                	@endif
